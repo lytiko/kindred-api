@@ -1,0 +1,10 @@
+__pycache__
+*.pyc
+*.sqlite3
+secrets.py
+*.log
+*.json
+*.sh
+*.css*
+.DS_Store
+.vscode
