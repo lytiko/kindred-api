@@ -1,4 +1,4 @@
-django==3.0
+django==2.2.8
 
 libsass
 django_sass_processor

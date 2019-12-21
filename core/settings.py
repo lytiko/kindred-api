@@ -10,6 +10,7 @@ ROOT_URLCONF = "core.urls"
 INSTALLED_APPS = [
  "django.contrib.contenttypes",
  "django.contrib.staticfiles",
+ "sass_processor",
  "core"
 ]
 
@@ -20,5 +21,15 @@ TIME_ZONE = "UTC"
 MIDDLEWARE = [
  "django.middleware.common.CommonMiddleware",
 ]
+
+TEMPLATES = [{
+ "BACKEND": "django.template.backends.django.DjangoTemplates",
+ "APP_DIRS": True,
+ "OPTIONS": {
+  "context_processors": [
+   "django.template.context_processors.request",
+  ],
+ },
+}]
 
 STATIC_URL = "/static/"
