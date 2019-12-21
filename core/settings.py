@@ -33,3 +33,11 @@ TEMPLATES = [{
 }]
 
 STATIC_URL = "/static/"
+if DEBUG:
+    MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+    STATIC_ROOT = os.path.abspath(f"{BASE_DIR}/static")
+else:
+     MEDIA_ROOT = os.path.join(BASE_DIR, "..", "uploads")
+     STATIC_ROOT = os.path.abspath(f"{BASE_DIR}/../static")
+MEDIA_URL = "/uploads/"
+SASS_PROCESSOR_ROOT = os.path.abspath(os.path.join(BASE_DIR, "core", "static"))
