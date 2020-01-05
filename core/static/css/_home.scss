@@ -1,0 +1,15 @@
+.home {
+    .tiers {
+        .tier {
+            border-bottom: 1px solid #f4f4f4;
+
+            .categories {
+                display: flex;
+
+                .category {
+                    border-left: 1px solid #f4f4f4;
+                }
+            }
+        }
+    }
+}

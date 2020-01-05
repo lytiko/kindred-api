@@ -12,6 +12,11 @@ class Tier(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+    def categories(self):
+        catgeory_ids = self.person_set.all().values_list("category_id", flat=True)
+        return Category.objects.filter(id__in=catgeory_ids)
 
 
 
