@@ -3,9 +3,16 @@
 {% block main %}
 <main class="home">
 
-<div class="people">
+<table class="people">
+    <tr>
+        <th>Name</th>
+        <th>Met</th>
+    </tr>
     {% for person in people %}
-    <h4>{{ person.first_name }} {{ person.last_name }}</h4>
+    <tr>
+        <td>{{ person.first_name }} {{ person.last_name }}</td>
+        <td>{{ person.met }} ({{ person.met|timesince }} ago)</td>
+    </tr>
     {% endfor %}
 </div>
 </main>

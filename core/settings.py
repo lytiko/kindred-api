@@ -10,6 +10,7 @@ ROOT_URLCONF = "core.urls"
 INSTALLED_APPS = [
  "django.contrib.contenttypes",
  "django.contrib.staticfiles",
+ "django.contrib.humanize",
  "django.contrib.auth",
  "django.contrib.sessions",
  "django.contrib.messages",

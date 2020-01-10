@@ -1,14 +1,12 @@
 .home {
-    .tiers {
-        .tier {
-            border-bottom: 1px solid #f4f4f4;
+    table.people {
+        border-collapse: collapse;
 
-            .categories {
-                display: flex;
+        tr {
 
-                .category {
-                    border-left: 1px solid #f4f4f4;
-                }
+            td, th {
+                padding: 3px 5px;
+                text-align: left;
             }
         }
     }
