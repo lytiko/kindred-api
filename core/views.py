@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from core.models import Tier
+from core.models import Person
 
 def home(request):
-    tiers = Tier.objects.all()
-    return render(request, "home.html", {"tiers": tiers})
+    people = Person.objects.all()
+    return render(request, "home.html", {"people": people})

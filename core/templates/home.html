@@ -3,23 +3,9 @@
 {% block main %}
 <main class="home">
 
-<div class="tiers">
-    {% for tier in tiers %}
-    <div class="tier">
-        <h2>{{ tier.name }}</h2>
-        <div class="categories">
-            {% for category in tier.categories %}
-            <div class="category">
-            <h3>{{ category.name }}</h3>
-            <div class="people">
-                {% for person in category.person_set.all %}
-                <h4>{{ person.first_name }} {{ person.last_name }}</h4>
-                {% endfor %}
-            </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+<div class="people">
+    {% for person in people %}
+    <h4>{{ person.first_name }} {{ person.last_name }}</h4>
     {% endfor %}
 </div>
 </main>
