@@ -18,6 +18,22 @@ class Person(models.Model):
     @property
     def name(self):
         return f"{self.first_name} {self.last_name}"
+    
+
+    @property
+    def last_interaction(self):
+        return self.interactions.last()
+    
+
+    @property
+    def last_voice_interaction(self):
+        return self.interactions.filter(level__gt=1).last()
+    
+
+    @property
+    def last_person_interaction(self):
+        return self.interactions.filter(level__gt=2).last()
+
 
 
 

@@ -8,12 +8,16 @@
         <th>Name</th>
         <th>Met</th>
         <th>Last Interaction</th>
+        <th>Last Voice Interaction</th>
+        <th>Last In-Person Interaction</th>
     </tr>
     {% for person in people %}
     <tr>
         <td>{{ person.first_name }} {{ person.last_name }}</td>
         <td>{{ person.met }} ({{ person.met|time_offset }})</td>
-        <td>{{ person.interactions.last.date }} ({{ person.interactions.last.date|time_offset }})</td>
+        <td>{{ person.last_interaction.date }} ({{ person.last_interaction.date|time_offset }})</td>
+        <td>{{ person.last_voice_interaction.date }} ({{ person.last_voice_interaction.date|time_offset }})</td>
+        <td>{{ person.last_person_interaction.date }} ({{ person.last_person_interaction.date|time_offset }})</td>
     </tr>
     {% endfor %}
 </div>
