@@ -1,10 +1,3 @@
-AOS.init({
-    once: true,
-    duration: 1000,
-    offset: 0,
-    delay: 100
-});
-
 function vanquishNav() {
     var navlinks = document.getElementsByClassName("navlinks").item(0);
     if (navlinks.style.height) {
@@ -27,52 +20,69 @@ function toggleNav() {
     }
 }
 
-function positionFooter() {
-    var nav = document.getElementsByTagName("nav").item(0);
-    var footer = document.getElementsByTagName("footer").item(0);
-    var main = document.getElementsByTagName("main").item(0);
-    mainHeight = window.innerHeight - (nav.offsetHeight + footer.offsetHeight);
-    main.style.minHeight = mainHeight + "px";
+function sortTable(n) {
+    /**
+     * Sorts the rows of a table according to the values in column n.
+     */
+
+    // Get references
+    var table = document.getElementsByTagName("table").item(0);
+    var tbody = table.tBodies[0];
+    var ths = table.rows.item(0).getElementsByTagName("th");
+    var th = ths.item(n);
+    var store = [];
+
+    // Should we sort ascending or descending?
+    var dir = "desc";
+    if (th.classList.contains("desc")) {
+        dir = "asc";
+    }
+    console.log("Going to sort:", dir)
+    
+    // Update store with values
+    var textColumn = false;
+    for (var i=1, len=table.rows.length; i<len; i++){
+        var row = table.rows[i];
+        var sortnr = parseFloat(row.cells[n].dataset.sort);
+        if (isNaN(sortnr)) {
+            textColumn = true;
+            store.push([row.cells[n].dataset.sort, row]);
+        } else {
+            store.push([sortnr, row]);
+        } 
+    }
+
+    // Sort the values
+    if (textColumn) {
+        store.sort(dir == "asc" ? function(x,y){
+            return y[0] < x[0] ? 1 : -1;
+        } : function(x,y){
+            return x[0] < y[0] ? 1 : -1;  
+        });
+    } else {
+        store.sort(dir == "asc" ? function(x,y){
+            return x[0] - y[0];
+        } : function(x,y){
+            return y[0] - x[0];
+        });
+    }
+    
+    for(var i=0, len=store.length; i<len; i++){
+        tbody.appendChild(store[i][1]);
+    }
+
+    // Update HTML class names
+    for (var t = 0; t < ths.length; t++) {
+        ths[t].classList.remove("asc");
+        ths[t].classList.remove("desc");
+    }
+    if (dir === "asc") {
+        th.classList.add("asc");
+    } else {
+        th.classList.add("desc");
+    }
 }
 
 document.body.onresize = function() {
     vanquishNav();
-    positionFooter();
-    window.onscroll();
 }
-
-window.onscroll = function() {
-    // Get the key elements
-    var nav = document.getElementsByTagName("nav").item(0);
-    var logo = document.getElementById("logo-img");
-    var burger = document.getElementsByTagName("button").item(0);
-
-    // What are the key values?
-    var IMGHEIGHT = getComputedStyle(burger)["display"] === "none" ? 400 : 200;
-    var NAVHEIGHT = 50;
-    var position = window.pageYOffset;
-    
-    // What should the height of the navbar be?
-    var desiredNavHeight = Math.max(IMGHEIGHT - position, NAVHEIGHT)
-    nav.style.height = desiredNavHeight + "px";
-
-    // What opacity should the nav background be?
-    var desiredOpacity = Math.min(position / (IMGHEIGHT - NAVHEIGHT), 1);
-    var background = getComputedStyle(nav)["background-color"];
-    var re = /\d+, \d+, \d+/;
-    nav.style.backgroundColor = "rgba(" + background.match(re)[0] + ", " + desiredOpacity + ")";
-
-    // Should the coloring be dark or light?
-    if (position < (IMGHEIGHT / 2)) {
-        nav.classList.add("expanded");
-    } else {
-        nav.classList.remove("expanded");
-    }
-
-    // What should the height of the logo be?
-    var desiredLogoHeight = Math.max(0.3 * nav.offsetHeight, 0.8 * NAVHEIGHT);
-    logo.style.height = desiredLogoHeight + "px";
-}
-
-document.body.onresize();
-window.onscroll();

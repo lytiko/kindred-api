@@ -1,11 +1,21 @@
 from django import template
 import datetime
+from calendar import timegm
 import math
 
 register = template.Library()
 
 def pluralize(s, i):
     return s if i == 1 else f"{s}s"
+
+
+@register.filter(name="timestamp")
+def timestamp(date):
+    """."""
+
+    if not date: return 0
+    return timegm(date.timetuple())
+
 
 @register.filter(name="time_offset")
 def time_offset(date):
