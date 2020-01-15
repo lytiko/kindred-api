@@ -14,10 +14,10 @@
     {% for person in people %}
     <tr>
         <td data-sort="{{ person.last_name }}">{{ person.first_name }} {{ person.last_name }}</td>
-        <td data-sort="{{ person.met|timestamp }}">{{ person.met }} ({{ person.met|time_offset }})</td>
-        <td data-sort="{{ person.last_interaction.date|timestamp }}">{{ person.last_interaction.date }} ({{ person.last_interaction.date|time_offset }})</td>
-        <td data-sort="{{ person.last_voice_interaction.date|timestamp }}">{{ person.last_voice_interaction.date }} ({{ person.last_voice_interaction.date|time_offset }})</td>
-        <td data-sort="{{ person.last_person_interaction.date|timestamp }}">{{ person.last_person_interaction.date }} ({{ person.last_person_interaction.date|time_offset }})</td>
+        <td data-sort="{{ person.met|timestamp }}" title="{{ person.met }}">{{ person.met|time_offset }}</td>
+        <td data-sort="{{ person.last_interaction.date|timestamp }}" title="{{ person.last_interaction.date }}">{{ person.last_interaction.date|time_offset }}</td>
+        <td data-sort="{{ person.last_voice_interaction.date|timestamp }}" title="{{ person.last_voice_interaction.date }}">{{ person.last_voice_interaction.date|time_offset }}</td>
+        <td data-sort="{{ person.last_person_interaction.date|timestamp }}" title="{{ person.last_person_interaction.date }}">{{ person.last_person_interaction.date|time_offset }}</td>
     </tr>
     {% endfor %}
 </div>
