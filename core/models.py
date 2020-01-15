@@ -1,4 +1,12 @@
+import os
 from django.db import models
+from django.dispatch import receiver
+
+def create_filename(instance, filename):
+    extension = "." + filename.split(".")[-1] if "." in filename else ""
+    name = instance.name.replace(" ", "_")
+    return f"{name.lower()}{extension}"
+
 
 class Person(models.Model):
 
@@ -10,6 +18,7 @@ class Person(models.Model):
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256, blank=True)
     met = models.DateField()
+    image = models.FileField(null=True, blank=True, upload_to=create_filename)
 
     def __str__(self):
         return self.name
@@ -51,8 +60,62 @@ class Interaction(models.Model):
     
     date = models.DateField()
     level = models.IntegerField(choices=LEVELS)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     person = models.ForeignKey(Person, related_name="interactions", on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.person.name} {self.LEVELS[self.level - 1][1]} on {self.date}"
+
+
+@receiver(models.signals.post_delete, sender=Person)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """Deletes a file when its model is deleted."""
+
+    for attr in ["image"]:
+        try:
+            if getattr(instance, attr):
+                if os.path.isfile(getattr(instance, attr).path):
+                    os.remove(getattr(instance, attr).path)
+        except: pass
+   
+
+@receiver(models.signals.pre_save, sender=Person)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    """Deletes a file when its model is updated with a new file and changes its
+    name if appropriate."""
+    
+    if not instance.pk: return False
+    try:
+        db_obj = sender.objects.get(pk=instance.pk)
+    except: return False
+    
+    # Should the name be changed?
+    print("Checking")
+    for attr in ["name"]:
+        try:
+            if getattr(db_obj, attr) != getattr(instance, attr):
+                for attr2 in ["image"]:
+                    print("Updating")
+                    try:
+                        old_path = getattr(instance, attr2).path
+                        new_name = create_filename(instance, getattr(instance, attr2).path)
+                        new_path = "/".join(
+                         getattr(instance, attr2).path.split("/")[:-1]
+                        ) + "/" + new_name
+                        print(old_path)
+                        print(new_path)
+                        os.rename(old_path, new_path)
+                        print("Updated")
+                        setattr(instance, attr2, new_name)
+                    except: pass
+        except: pass
+
+    # Should the file be deleted
+    for attr in ["image"]:   
+        try:
+            new_file = getattr(instance, attr)
+            if not getattr(db_obj, attr) == new_file:
+                if os.path.isfile(getattr(db_obj, attr).path):
+                    os.remove(getattr(db_obj, attr).path)
+
+        except: pass

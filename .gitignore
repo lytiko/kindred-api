@@ -8,3 +8,5 @@ secrets.py
 *.css*
 .DS_Store
 .vscode
+uploads/*
+!uploads/.gitkeep
