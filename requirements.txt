@@ -1,4 +1,5 @@
 django==2.2.8
+mixer
 
 libsass
 django_sass_processor

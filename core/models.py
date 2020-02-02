@@ -30,7 +30,7 @@ def create_filename(instance, filename):
 class Person(models.Model):
 
     class Meta:
-        db_table = "people"
+        db_table = "old_people"
         verbose_name_plural = "people"
         ordering = ["last_name"]
 

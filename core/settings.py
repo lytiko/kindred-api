@@ -16,7 +16,7 @@ INSTALLED_APPS = [
  "django.contrib.messages",
  "django.contrib.admin",
  "sass_processor",
- "core"
+ "core", "people"
 ]
 
 DATE_FORMAT = "D j M, Y"
