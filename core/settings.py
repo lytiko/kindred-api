@@ -23,6 +23,8 @@ DATE_FORMAT = "D j M, Y"
 USE_TZ = True
 TIME_ZONE = "UTC"
 
+AUTH_USER_MODEL = "core.User"
+
 MIDDLEWARE = [
  "django.contrib.sessions.middleware.SessionMiddleware",
  "django.middleware.common.CommonMiddleware",
