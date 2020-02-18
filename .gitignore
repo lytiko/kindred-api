@@ -2,10 +2,13 @@ __pycache__
 *.pyc
 *.sqlite3
 secrets.py
+create_local.py
 *.log
 *.json
 *.sh
+*.txt
 *.css*
+*.csv
 .DS_Store
 .vscode
 uploads/*

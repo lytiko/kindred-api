@@ -14,4 +14,6 @@ class Person(models.Model):
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256, blank=True)
     description = models.TextField(blank=True)
+    started = models.DateField(null=True)
+    date_of_birth = models.DateField(null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="people")
