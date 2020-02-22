@@ -32,4 +32,4 @@ class Tag(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField(blank=True)
     people = models.ManyToManyField(Person, related_name="tags", blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tags")
