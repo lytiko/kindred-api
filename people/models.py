@@ -18,6 +18,15 @@ class Person(models.Model):
     date_of_birth = models.DateField(null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="people")
 
+    def __str__(self):
+        return self.full_name
+
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}".strip()
+    
+
 
 
 class Tag(models.Model):
@@ -33,3 +42,6 @@ class Tag(models.Model):
     description = models.TextField(blank=True)
     people = models.ManyToManyField(Person, related_name="tags", blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tags")
+
+    def __str__(self):
+        return self.name

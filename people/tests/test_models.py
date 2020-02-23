@@ -17,6 +17,15 @@ class PersonTests(TestCase):
             Person.objects.create(**args)
     
 
+    def test_person_full_name(self):
+        self.assertEqual(
+            mixer.blend(Person, first_name="F", last_name="L").full_name, "F L"
+        )
+        self.assertEqual(
+            mixer.blend(Person, first_name="F", last_name="").full_name, "F"
+        )
+    
+
     def test_can_list_person_tags(self):
         user = mixer.blend(User)
         p = mixer.blend(Person, user=user)
@@ -34,3 +43,4 @@ class PersonTests(TestCase):
         mixer.blend(Tag, name="A")
         with self.assertRaises(ValidationError):
             Tag(user=user, name="A").full_clean()
+    
