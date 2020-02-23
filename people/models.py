@@ -1,4 +1,4 @@
-"""Models related to people and their interactions."""
+"""Models related to people."""
 
 from django.db import models
 from core.models import User

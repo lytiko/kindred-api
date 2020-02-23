@@ -11,7 +11,7 @@ INSTALLED_APPS = [
  "django.contrib.contenttypes",
  "django.contrib.staticfiles",
  "django.contrib.auth",
- "core", "people"
+ "core", "people", "relationships"
 ]
 
 DATE_FORMAT = "D j M, Y"
