@@ -20,3 +20,16 @@ class Interaction(models.Model):
     level = models.IntegerField(choices=LEVELS)
     description = models.TextField(blank=True)
     person = models.ForeignKey(Person, related_name="interactions", on_delete=models.CASCADE)
+
+
+
+class Relationship(models.Model):
+    """An relationship between two people."""
+
+    class Meta:
+        db_table = "relationships"
+
+    description = models.TextField(blank=True)
+    person1 = models.ForeignKey(Person, related_name="_relationships1", on_delete=models.CASCADE)
+    person2 = models.ForeignKey(Person, related_name="_relationships2", on_delete=models.CASCADE)
+    

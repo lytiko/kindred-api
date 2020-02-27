@@ -2,6 +2,7 @@ from mixer.backend.django import mixer
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 from people.models import *
+from relationships.models import Relationship
 
 class PersonTests(TestCase):
 
@@ -24,6 +25,19 @@ class PersonTests(TestCase):
         self.assertEqual(
             mixer.blend(Person, first_name="F", last_name="").full_name, "F"
         )
+    
+
+    def test_can_get_connections(self):
+        p1 = mixer.blend(Person)
+        p2 = mixer.blend(Person)
+        p3 = mixer.blend(Person)
+        p4 = mixer.blend(Person)
+        p5 = mixer.blend(Person)
+        mixer.blend(Relationship, person1=p1, person2=p2)
+        mixer.blend(Relationship, person1=p1, person2=p3)
+        mixer.blend(Relationship, person1=p1, person2=p4)
+        mixer.blend(Relationship, person1=p3, person2=p5)
+        self.assertEqual(set(p1.connections.all()), {p2, p3, p4})
     
 
     def test_can_list_person_tags(self):
