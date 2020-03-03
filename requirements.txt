@@ -1,5 +1,4 @@
 django==2.2.10
 mixer
 
-libsass
-django_sass_processor
+jwt
