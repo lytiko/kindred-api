@@ -35,6 +35,18 @@ class Person(models.Model):
         
     
 
+class Handle(models.Model):
+    """A contact detail for a person."""
+
+    class Meta:
+        db_table = "handles"
+        ordering = ["name"]
+
+    name = models.CharField(max_length=256)
+    value = models.CharField(max_length=256)
+    person = models.ForeignKey(Person, related_name="handles", on_delete=models.CASCADE)
+
+
 
 class Tag(models.Model):
     """A tag for categorising people."""

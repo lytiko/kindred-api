@@ -59,6 +59,16 @@ class PersonTests(TestCase):
 
 
 
+class HandleTests(TestCase):
+
+    def test_can_create_handle(self):
+        kwargs = {
+            "name": "Email", "person": mixer.blend(Person), "value": "a@b.c",
+        }
+        handle = Handle.objects.create(**kwargs)
+
+
+
 class InteractionTests(TestCase):
 
     def test_can_make_new_interaction(self):
