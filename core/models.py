@@ -18,6 +18,8 @@ class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
+    user_paths = [""]
+
     def create_jwt(self):
         """Creates a JWT token for the user at the current UTC time.
         

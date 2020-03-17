@@ -24,13 +24,20 @@ class Person(models.Model):
 
     @property
     def full_name(self):
+        """Generates the person's full name."""
+
         return f"{self.first_name} {self.last_name}".strip()
     
 
     @property
     def connections(self):
-        relationships = Relationship.objects.filter(person1=self) | Relationship.objects.filter(person2=self)
-        people_ids = [item for sublist in relationships.values_list("person1", "person2") for item in sublist] 
+        """Gets all the people this user is connected to."""
+
+        relationships = Relationship.objects.filter(person1=self) |\
+            Relationship.objects.filter(person2=self)
+        people_ids = [item for sublist in relationships.values_list(
+            "person1", "person2"
+        ) for item in sublist] 
         return Person.objects.filter(id__in=people_ids).exclude(id=self.id)
         
     

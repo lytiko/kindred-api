@@ -36,7 +36,8 @@ class PersonTests(TestCase):
         mixer.blend(Relationship, person1=p1, person2=p3)
         mixer.blend(Relationship, person1=p1, person2=p4)
         mixer.blend(Relationship, person1=p3, person2=p5)
-        self.assertEqual(set(p1.connections.all()), {p2, p3, p4})
+        with self.assertNumQueries(2):
+            self.assertEqual(set(p1.connections.all()), {p2, p3, p4})
     
 
     def test_can_list_person_tags(self):
