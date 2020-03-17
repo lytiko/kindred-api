@@ -1,0 +1,28 @@
+@import "./presets";
+
+body {
+    font-family: $font;
+}
+
+a, a:visited {
+    color: $hyperlink-blue;
+}
+
+input, select {
+    display: block;
+    width: 100%;
+    padding: $gap-3;
+    border: 1px solid silver;
+}
+
+*:focus {
+    outline: none;
+}
+
+input[type=submit], button {
+    cursor: pointer;
+}
+
+.error {
+    color: $error-red;
+}

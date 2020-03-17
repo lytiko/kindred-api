@@ -11,6 +11,7 @@ INSTALLED_APPS = [
  "django.contrib.contenttypes",
  "django.contrib.staticfiles",
  "django.contrib.auth",
+ "corsheaders",
  "core", "people"
 ]
 
@@ -19,9 +20,11 @@ USE_TZ = True
 TIME_ZONE = "UTC"
 
 AUTH_USER_MODEL = "core.User"
+CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
  "django.middleware.common.CommonMiddleware",
+ "corsheaders.middleware.CorsMiddleware",
 ]
 
 TEMPLATES = [{
