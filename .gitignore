@@ -6,6 +6,7 @@ node_modules
 create_local.py
 *.log
 *.json
+!client/*.json
 *.sh
 *.txt
 *.csv
