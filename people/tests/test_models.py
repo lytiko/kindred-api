@@ -17,6 +17,17 @@ class PersonTests(TestCase):
             Person.objects.create(**args)
     
 
+    def test_people_ordered_by_last_connection(self):
+        p1 = mixer.blend(Person, first_name="A")
+        p2 = mixer.blend(Person, first_name="B")
+        p3 = mixer.blend(Person, first_name="C")
+        p4 = mixer.blend(Person, first_name="D")
+        mixer.blend(Interaction, person=p3, date="2000-01-10")
+        mixer.blend(Interaction, person=p2, date="2000-01-10")
+        mixer.blend(Interaction, person=p1, date="2000-01-08")
+        self.assertEqual(list(Person.objects.all()), [p2, p3, p1, p4])
+    
+
     def test_person_full_name(self):
         self.assertEqual(
             mixer.blend(Person, first_name="F", last_name="L").full_name, "F L"

@@ -3,6 +3,17 @@
 from django.db import models
 from core.models import User
 
+class PersonManager(models.Manager):
+
+    def get_queryset(self):
+        """By default, people should be ordered by last interaction."""
+
+        return super().get_queryset().annotate(
+            max_date=models.Max("interactions__date"),
+        ).order_by("-max_date", "first_name")
+
+
+
 class Person(models.Model):
     """A real person in the world, that the user may or not have met, but for
     which they want to be aware of."""
@@ -17,6 +28,8 @@ class Person(models.Model):
     started = models.DateField(null=True)
     date_of_birth = models.DateField(null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="people")
+
+    objects = PersonManager()
 
     def __str__(self):
         return self.full_name
