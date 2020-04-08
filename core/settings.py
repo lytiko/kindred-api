@@ -25,6 +25,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 MIDDLEWARE = [
  "django.middleware.common.CommonMiddleware",
  "corsheaders.middleware.CorsMiddleware",
+ "core.middleware.AuthenticationMiddleware",
 ]
 
 TEMPLATES = [{
@@ -41,3 +42,8 @@ else:
      STATIC_ROOT = os.path.abspath(f"{BASE_DIR}/../static")
 MEDIA_URL = "/uploads/"
 SASS_PROCESSOR_ROOT = os.path.abspath(os.path.join(BASE_DIR, "core", "static"))
+
+TOKEN_TIMEOUT = 15
+GRAPHENE = {
+ "SCHEMA": "core.schema.schema"
+}
