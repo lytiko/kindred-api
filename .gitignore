@@ -7,8 +7,7 @@ create_local.py
 *.log
 *.json
 !client/*.json
-*.sh
-*.txt
+outline.txt
 *.csv
 *.dat
 .DS_Store
