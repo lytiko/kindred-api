@@ -1,4 +1,5 @@
-django==2.2.10
-django-cors-headers
+django==2.2.12
+django_cors_headers
+graphene_django==2.8.2
 pyjwt
-graphene_django
+requests
